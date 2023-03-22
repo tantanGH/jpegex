@@ -27,6 +27,8 @@ JPGEXxxx.ZIP をダウンロードして展開し、JPEGEX.X をパスの通っ�
       -e    ... XEiJ拡張グラフィックを使用します
       -h    ... ヘルプメッセージを表示します
 
+060loadhigh.x を使ったハイメモリ上での実行に対応しています。
+
 ---
 
 ### Special Thanks
