@@ -19,7 +19,7 @@ static void show_help_message() {
   printf("   -v<n> ... brightness(1-100, default:100)\n");
   printf("   -c    ... clear screen\n");
   printf("   -s    ... half size\n");
-  printf("   -e    ... use XEiJ extended graphic (1024x1024x65536)\n");
+  printf("   -e    ... use XEiJ extended graphic (768x512x32768)\n");
   printf("   -h    ... show help message\n");
 }
 
