@@ -133,12 +133,10 @@ int32_t main(int32_t argc, uint8_t* argv[]) {
 
   JPEG_DECODE_HANDLE jpeg_decode = { 0 };
   jpeg_decode_init(&jpeg_decode, brightness, half_size, extended_graphic);
-  jpeg_decode_exec(&jpeg_decode, file_data, file_size);
+  rc = jpeg_decode_exec(&jpeg_decode, file_data, file_size);
   jpeg_decode_close(&jpeg_decode);
 
   C_CURON();
-
-  rc = 0;
 
 exit:
 
