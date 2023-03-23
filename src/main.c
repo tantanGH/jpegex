@@ -121,17 +121,15 @@ int32_t main(int32_t argc, uint8_t* argv[]) {
   C_CUROFF();
 
   if (clear_screen) {
-    if (extended_graphic) {
-      struct FILLPTR fillptr = { 0, 0, 767, 511, 0 };
-      FILL(&fillptr);
-      C_CLS_AL();
-    } else {
-      G_CLR_ON();
-      C_CLS_AL();      
-    }
+    G_CLR_ON();
+    C_CLS_AL();
   }
 
   crtc_set_extra_mode(extended_graphic);
+  if (extended_graphic) {
+    struct FILLPTR fillptr = { 0, 0, 767, 511, 0 };
+    FILL(&fillptr);
+  }
 
   JPEG_DECODE_HANDLE jpeg_decode = { 0 };
   jpeg_decode_init(&jpeg_decode, brightness, half_size, extended_graphic);
