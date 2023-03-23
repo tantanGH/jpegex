@@ -6,8 +6,7 @@ A simple JPEG viewer for X680x0/Human68k with XEiJ extended graphic support
 
 X680x0用のJPEGローダといえば高速なjpeged.rが定番ですが、自分がmacOSから持ち込んだjpegだとベースラインjpegであっても色がおかしくなるケースがあるのと、XEiJ拡張グラフィックに対応したJPEGローダがなかったので作成したものです。
 
-JPEGデコードライブラリとして Rich Geldreich氏の picojpeg を利用させて頂いています。(public domain license) 
-Microcontroller 向けのコンパクトなJPEGデコードライブラリです。
+JPEGデコードライブラリとして Rich Geldreich氏の picojpeg (public domain license) を利用させて頂いています。
 
 ---
 
