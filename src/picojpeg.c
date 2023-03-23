@@ -12,7 +12,7 @@
 #define PJPG_RIGHT_SHIFT_IS_ALWAYS_UNSIGNED 0
 
 // Define PJPG_INLINE to "inline" if your C compiler supports explicit inlining
-#define PJPG_INLINE
+#define PJPG_INLINE inline
 //------------------------------------------------------------------------------
 typedef unsigned char   uint8;
 typedef unsigned short  uint16;
@@ -20,7 +20,7 @@ typedef signed char     int8;
 typedef signed short    int16;
 //------------------------------------------------------------------------------
 #if PJPG_RIGHT_SHIFT_IS_ALWAYS_UNSIGNED
-static int16 replicateSignBit16(int8 n)
+static PJPG_INLINE int16 replicateSignBit16(int8 n)
 {
    switch (n)
    {
@@ -279,7 +279,7 @@ static PJPG_INLINE uint8 getOctet(uint8 FFCheck)
    return c;
 }
 //------------------------------------------------------------------------------
-static uint16 getBits(uint8 numBits, uint8 FFCheck)
+static PJPG_INLINE uint16 getBits(uint8 numBits, uint8 FFCheck)
 {
    uint8 origBits = numBits;
    uint16 ret = gBitBuf;
@@ -345,7 +345,7 @@ static PJPG_INLINE uint8 getBit(void)
    return ret;
 }
 //------------------------------------------------------------------------------
-static uint16 getExtendTest(uint8 i)
+static PJPG_INLINE uint16 getExtendTest(uint8 i)
 {
    switch (i)
    {
@@ -369,7 +369,7 @@ static uint16 getExtendTest(uint8 i)
    }      
 }
 //------------------------------------------------------------------------------
-static int16 getExtendOffset(uint8 i)
+static PJPG_INLINE int16 getExtendOffset(uint8 i)
 { 
    switch (i)
    {
@@ -465,7 +465,7 @@ static void huffCreate(const uint8* pBits, HuffTable* pHuffTable)
    }
 }
 //------------------------------------------------------------------------------
-static HuffTable* getHuffTable(uint8 index)
+static PJPG_INLINE HuffTable* getHuffTable(uint8 index)
 {
    // 0-1 = DC
    // 2-3 = AC
@@ -479,7 +479,7 @@ static HuffTable* getHuffTable(uint8 index)
    }
 }
 //------------------------------------------------------------------------------
-static uint8* getHuffVal(uint8 index)
+static PJPG_INLINE uint8* getHuffVal(uint8 index)
 {
    // 0-1 = DC
    // 2-3 = AC
@@ -493,12 +493,12 @@ static uint8* getHuffVal(uint8 index)
    }
 }
 //------------------------------------------------------------------------------
-static uint16 getMaxHuffCodes(uint8 index)
+static PJPG_INLINE uint16 getMaxHuffCodes(uint8 index)
 {
    return (index < 2) ? 12 : 255;
 }
 //------------------------------------------------------------------------------
-static uint8 readDHTMarker(void)
+static PJPG_INLINE uint8 readDHTMarker(void)
 {
    uint8 bits[16];
    uint16 left = getBits1(16);
@@ -556,7 +556,7 @@ static uint8 readDHTMarker(void)
 //------------------------------------------------------------------------------
 static void createWinogradQuant(int16* pQuant);
 
-static uint8 readDQTMarker(void)
+static PJPG_INLINE uint8 readDQTMarker(void)
 {
    uint16 left = getBits1(16);
 
@@ -609,7 +609,7 @@ static uint8 readDQTMarker(void)
    return 0;
 }
 //------------------------------------------------------------------------------
-static uint8 readSOFMarker(void)
+static PJPG_INLINE uint8 readSOFMarker(void)
 {
    uint8 i;
    uint16 left = getBits1(16);
@@ -650,7 +650,7 @@ static uint8 readSOFMarker(void)
 }
 //------------------------------------------------------------------------------
 // Used to skip unrecognized markers.
-static uint8 skipVariableMarker(void)
+static PJPG_INLINE uint8 skipVariableMarker(void)
 {
    uint16 left = getBits1(16);
 
@@ -669,7 +669,7 @@ static uint8 skipVariableMarker(void)
 }
 //------------------------------------------------------------------------------
 // Read a define restart interval (DRI) marker.
-static uint8 readDRIMarker(void)
+static PJPG_INLINE uint8 readDRIMarker(void)
 {
    if (getBits1(16) != 4)
       return PJPG_BAD_DRI_LENGTH;
@@ -680,7 +680,7 @@ static uint8 readDRIMarker(void)
 }
 //------------------------------------------------------------------------------
 // Read a start of scan (SOS) marker.
-static uint8 readSOSMarker(void)
+static PJPG_INLINE uint8 readSOSMarker(void)
 {
    uint8 i;
    uint16 left = getBits1(16);
@@ -729,7 +729,7 @@ static uint8 readSOSMarker(void)
    return 0;
 }
 //------------------------------------------------------------------------------
-static uint8 nextMarker(void)
+static PJPG_INLINE uint8 nextMarker(void)
 {
    uint8 c;
    uint8 bytes = 0;
@@ -759,7 +759,7 @@ static uint8 nextMarker(void)
 //------------------------------------------------------------------------------
 // Process markers. Returns when an SOFx, SOI, EOI, or SOS marker is
 // encountered.
-static uint8 processMarkers(uint8* pMarker)
+static PJPG_INLINE uint8 processMarkers(uint8* pMarker)
 {
    for ( ; ; )
    {
@@ -834,7 +834,7 @@ static uint8 processMarkers(uint8* pMarker)
 }
 //------------------------------------------------------------------------------
 // Finds the start of image (SOI) marker.
-static uint8 locateSOIMarker(void)
+static PJPG_INLINE uint8 locateSOIMarker(void)
 {
    uint16 bytesleft;
    
@@ -879,7 +879,7 @@ static uint8 locateSOIMarker(void)
 }
 //------------------------------------------------------------------------------
 // Find a start of frame (SOF) marker.
-static uint8 locateSOFMarker(void)
+static PJPG_INLINE uint8 locateSOFMarker(void)
 {
    uint8 c;
 
@@ -922,7 +922,7 @@ static uint8 locateSOFMarker(void)
 }
 //------------------------------------------------------------------------------
 // Find a start of scan (SOS) marker.
-static uint8 locateSOSMarker(uint8* pFoundEOI)
+static PJPG_INLINE uint8 locateSOSMarker(uint8* pFoundEOI)
 {
    uint8 c;
    uint8 status;
@@ -1027,7 +1027,7 @@ static uint8 processRestart(void)
 //------------------------------------------------------------------------------
 // FIXME: findEOI() is not actually called at the end of the image 
 // (it's optional, and probably not needed on embedded devices)
-static uint8 findEOI(void)
+static PJPG_INLINE uint8 findEOI(void)
 {
    uint8 c;
    uint8 status;
@@ -1051,7 +1051,7 @@ static uint8 findEOI(void)
    return 0;
 }
 //------------------------------------------------------------------------------
-static uint8 checkHuffTables(void)
+static PJPG_INLINE uint8 checkHuffTables(void)
 {
    uint8 i;
 
@@ -1068,7 +1068,7 @@ static uint8 checkHuffTables(void)
    return 0;
 }
 //------------------------------------------------------------------------------
-static uint8 checkQuantTables(void)
+static PJPG_INLINE uint8 checkQuantTables(void)
 {
    uint8 i;
 
@@ -1083,7 +1083,7 @@ static uint8 checkQuantTables(void)
    return 0;         
 }
 //------------------------------------------------------------------------------
-static uint8 initScan(void)
+static PJPG_INLINE uint8 initScan(void)
 {
    uint8 foundEOI;
    uint8 status = locateSOSMarker(&foundEOI);
@@ -1115,7 +1115,7 @@ static uint8 initScan(void)
    return 0;
 }
 //------------------------------------------------------------------------------
-static uint8 initFrame(void)
+static PJPG_INLINE uint8 initFrame(void)
 {
    if (gCompsInFrame == 1)
    {
