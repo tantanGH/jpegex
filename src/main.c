@@ -8,7 +8,7 @@
 #include "crtc.h"
 #include "jpeg_decode.h"
 
-#define VERSION "0.1.1 (2023/03/24)"
+#define VERSION "0.1.2 (2023/03/24)"
 
 //
 //  show help message
@@ -119,14 +119,19 @@ int32_t main(int32_t argc, uint8_t* argv[]) {
   C_CUROFF();
 
   if (clear_screen) {
-    G_CLR_ON();
     C_CLS_AL();
+    if (!extended_graphic) {
+      CRTMOD(16);
+      G_CLR_ON();
+    }
   }
 
   crtc_set_extra_mode(extended_graphic);
   if (extended_graphic) {
-    struct FILLPTR fillptr = { 0, 0, 767, 511, 0 };
-    FILL(&fillptr);
+    if (clear_screen) {
+      struct FILLPTR fillptr = { 0, 0, 767, 511, 0 };   // cannot use G_CLR_ON
+      FILL(&fillptr);
+    }
   }
 
   JPEG_DECODE_HANDLE jpeg_decode = { 0 };
