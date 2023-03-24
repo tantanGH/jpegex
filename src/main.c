@@ -14,6 +14,7 @@
 //  show help message
 //
 static void show_help_message() {
+  printf("JPEGEX.X - A simple JPEG viewer for X680x0 " VERSION " by tantan\n");
   printf("usage: jpegex [options] <file.jpg>\n");
   printf("options:\n");
   printf("   -v<n> ... brightness(1-100, default:100)\n");
@@ -45,9 +46,6 @@ int32_t main(int32_t argc, uint8_t* argv[]) {
   int16_t clear_screen = 0;
   int16_t half_size = 0;
   int16_t extended_graphic = 0;
-
-  // credit
-  printf("JPEGEX.X - A simple JPEG viewer for X680x0 " VERSION " by tantan\n");
 
   // check command line
   if (argc < 2) {
