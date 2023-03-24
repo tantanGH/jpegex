@@ -141,9 +141,7 @@ static int32_t jpeg_decode_exec_half(JPEG_DECODE_HANDLE* jpeg, uint8_t* jpeg_buf
           }
 
           int32_t gy = ofs_y + (mcu_y * image_info.m_MCUHeight + y + by)/2;
-          if (gy > 511) {
-            break;
-          } else if (gy < 0) {
+          if (gy < 0 || gy > 511) {
             pSrcR += 8;
             pSrcG += 8;
             pSrcB += 8;
@@ -252,9 +250,7 @@ int32_t jpeg_decode_exec(JPEG_DECODE_HANDLE* jpeg, uint8_t* jpeg_buffer, size_t 
         for (int16_t by = 0; by < by_limit; by++) {
 
           int32_t gy = ofs_y + mcu_y * image_info.m_MCUHeight + y + by;
-          if (gy > 511) {
-            goto end;
-          } else if (gy < 0) {
+          if (gy < 0 || gy > 511) {
             pSrcR += 8;
             pSrcG += 8;
             pSrcB += 8;
@@ -291,7 +287,6 @@ int32_t jpeg_decode_exec(JPEG_DECODE_HANDLE* jpeg, uint8_t* jpeg_buffer, size_t 
     }
 
   }
-end:
 
   rc = 0;
 

@@ -8,7 +8,7 @@
 #include "crtc.h"
 #include "jpeg_decode.h"
 
-#define VERSION "0.1.0 (2023/03/23)"
+#define VERSION "0.1.1 (2023/03/24)"
 
 //
 //  show help message
